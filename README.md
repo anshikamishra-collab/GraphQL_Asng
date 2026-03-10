@@ -6,7 +6,7 @@ This project implements a Project & Task Management system with proper relationa
 
 ---
 
-## 🚀 Tech Stack
+## Tech Stack
 
 - Node.js
 - Express
@@ -17,7 +17,7 @@ This project implements a Project & Task Management system with proper relationa
 
 ---
 
-## 🗄 Database Design
+## Database Design
 
 ### Tables:
 
