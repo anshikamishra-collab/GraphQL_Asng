@@ -12,13 +12,21 @@ export const projectResolvers = {
   },
 
   Mutation: {
-    createProject: async (_: any, { name, description, createdBy }: any) => {
+    createProject: async (_: any, { name, description }: any, context: any) => {
+      // 🔐 AUTH CHECK
+      if (!context.user) {
+        throw new Error("Unauthorized");
+      }
+
+      const userId = context.user.userId;
+
       const result = await pool.query(
         `INSERT INTO projects (name, description, created_by)
          VALUES ($1, $2, $3)
          RETURNING *`,
-        [name, description, createdBy],
+        [name, description, userId],
       );
+
       return result.rows[0];
     },
   },
