@@ -15,7 +15,9 @@ export const projectResolvers = {
     createProject: async (_: any, { name, description }: any, context: any) => {
       // 🔐 AUTH CHECK
       if (!context.user) {
-        throw new Error("Unauthorized");
+        throw new Error(
+          "You must be logged in to create a project. Please sign in and try again.",
+        );
       }
 
       const userId = context.user.userId;

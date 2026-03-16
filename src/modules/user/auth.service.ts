@@ -19,20 +19,33 @@ export const register = async (
       [name, email, hashedPassword],
     );
 
+    const createdUser = result.rows[0];
+
     const token = jwt.sign(
-      { userId: result.rows[0].id, email },
+      { userId: createdUser.id, email },
       process.env.JWT_SECRET as string,
       { expiresIn: "1d" },
     );
 
-    return { token };
+    return {
+      token,
+      user: {
+        id: createdUser.id,
+        name: createdUser.name,
+        email: createdUser.email,
+      },
+    };
   } catch (error: any) {
     // PostgreSQL duplicate email error
     if (error.code === "23505") {
-      throw new Error("Email already registered");
+      throw new Error(
+        "A user with this email already exists. Please sign in instead or use a different email address.",
+      );
     }
 
-    throw new Error("Registration failed");
+    throw new Error(
+      "Registration failed due to an unexpected error. Please try again later.",
+    );
   }
 };
 
@@ -43,11 +56,17 @@ export const login = async (email: string, password: string) => {
 
   const user = result.rows[0];
 
-  if (!user) throw new Error("User not found");
+  if (!user)
+    throw new Error(
+      "No account found for this email. Please check the email or register first.",
+    );
 
   const isValid = await bcrypt.compare(password, user.password);
 
-  if (!isValid) throw new Error("Invalid password");
+  if (!isValid)
+    throw new Error(
+      "The password you entered is incorrect. Please try again.",
+    );
 
   const token = jwt.sign({ userId: user.id, email: user.email }, JWT_SECRET, {
     expiresIn: "1d",

@@ -9,7 +9,9 @@ export const UserService = {
     const existing = await UserModel.findByEmail(email);
 
     if (existing) {
-      throw new Error("Email already exists");
+      throw new Error(
+        "A user with this email already exists. Please use a different email address.",
+      );
     }
 
     return UserModel.create(name, email);

@@ -22,7 +22,9 @@ export const userResolvers = {
         return result.rows[0];
       } catch (error: any) {
         if (error.code === "23505") {
-          throw new Error("Email already exists");
+          throw new Error(
+            "A user with this email already exists. Please use a different email address.",
+          );
         }
         throw error;
       }
