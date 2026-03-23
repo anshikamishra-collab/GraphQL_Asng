@@ -35,11 +35,6 @@ export const typeDefs = gql`
     assignedTo: User
   }
 
-  # ---------------- AUTH PAYLOAD ----------------
-  type AuthPayload {
-    token: String!
-    user: User!
-  }
 
   # ---------------- QUERIES ----------------
   type Query {
@@ -57,7 +52,6 @@ export const typeDefs = gql`
   type Mutation {
 
     # Old logic still works
-    createUser(name: String!, email: String!): User!
     createProject(name: String!, description: String!): Project!
     createTask(
       title: String!,
@@ -68,8 +62,6 @@ export const typeDefs = gql`
     ): Task!
     updateTaskStatus(id: ID!, status: TaskStatus!): Task!
 
-    # NEW AUTH LOGIC
-    register(name: String!, email: String!, password: String!): AuthPayload!
-    login(email: String!, password: String!): AuthPayload!
+
   }
 `;

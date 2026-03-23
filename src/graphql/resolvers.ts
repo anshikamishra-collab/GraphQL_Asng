@@ -10,7 +10,6 @@ export const resolvers = {
   },
 
   Mutation: {
-    ...userResolvers.Mutation,
     ...projectResolvers.Mutation,
     ...taskResolvers.Mutation,
   },

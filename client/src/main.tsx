@@ -1,10 +1,17 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import './index.css'
-import App from './App.tsx'
+import { Auth0Provider } from "@auth0/auth0-react";
+import React from "react";
+import ReactDOM from "react-dom/client";
+import App from "./App";
 
-createRoot(document.getElementById('root')!).render(
-  <StrictMode>
+ReactDOM.createRoot(document.getElementById("root")!).render(
+  <Auth0Provider
+    domain="dev-21v35bfkf3485r4d.us.auth0.com"
+    clientId="wv2rc9u6jbz4SdtAgqJ3XyDTjO8NAuWj"
+    authorizationParams={{
+      redirect_uri: window.location.origin,
+      audience: "https://graph-api",
+    }}
+  >
     <App />
-  </StrictMode>,
-)
+  </Auth0Provider>,
+);

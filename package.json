@@ -28,6 +28,7 @@
     "cors": "^2.8.6",
     "dotenv": "^17.3.1",
     "express": "^4.22.1",
+    "express-oauth2-jwt-bearer": "^1.7.4",
     "graphql": "^16.13.1",
     "graphql-tag": "^2.12.6",
     "jsonwebtoken": "^9.0.3",
